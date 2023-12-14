@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cli7xtr0vhwu"
+path="res://.godot/imported/station.obj-0bc1f8f4783926cebc2a30a997533cf9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/station.obj-0bc1f8f4783926cebc2a30a997533cf9.mesh"]
+
+source_file="res://assets/objects/station.obj"
+dest_files=["res://.godot/imported/station.obj-0bc1f8f4783926cebc2a30a997533cf9.mesh", "res://.godot/imported/station.obj-0bc1f8f4783926cebc2a30a997533cf9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

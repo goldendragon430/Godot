@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://vjo6nbxw0hmi"]
+
+[ext_resource type="Script" path="res://scripts/bullet_laser.gd" id="1_26uh7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xopg1"]
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 20.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_0kq04"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hadd6"]
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_26uh7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_xopg1")
+mesh = SubResource("BoxMesh_0kq04")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_hadd6")

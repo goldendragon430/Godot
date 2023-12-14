@@ -1,0 +1,143 @@
+[gd_scene load_steps=18 format=3 uid="uid://bndlel6wjfi3f"]
+
+[ext_resource type="Shader" uid="uid://dxmslvotmn2x0" path="res://assets/materials/explosion_impact.tres" id="1_4cyb0"]
+
+[sub_resource type="Gradient" id="Gradient_m106s"]
+offsets = PackedFloat32Array(0, 0.994624)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pitss"]
+gradient = SubResource("Gradient_m106s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8rovp"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 1, 0)
+color_ramp = SubResource("GradientTexture1D_pitss")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y1wto"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8hryk"]
+noise = SubResource("FastNoiseLite_y1wto")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uw13v"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tqy63"]
+noise = SubResource("FastNoiseLite_uw13v")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_78h60"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4oafi"]
+noise = SubResource("FastNoiseLite_78h60")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pw13c"]
+render_priority = 0
+shader = ExtResource("1_4cyb0")
+shader_parameter/displace = 0.195
+shader_parameter/base_color = Color(0.227451, 0.227451, 0.227451, 1)
+shader_parameter/emission_color = Color(0.670588, 0.298039, 0, 1)
+shader_parameter/emission_strength = 20.0
+shader_parameter/tex_vtx_2 = SubResource("NoiseTexture2D_4oafi")
+shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_tqy63")
+shader_parameter/tex_frg_17 = SubResource("NoiseTexture2D_8hryk")
+
+[sub_resource type="SphereMesh" id="SphereMesh_gp51h"]
+material = SubResource("ShaderMaterial_pw13c")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1f6oe"]
+albedo_color = Color(1, 0.905882, 0.478431, 1)
+emission_enabled = true
+emission = Color(0.972549, 0.337255, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_vvrej"]
+material = SubResource("StandardMaterial3D_1f6oe")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="Animation" id="Animation_21d30"]
+resource_name = "explosion"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0316179, 0.207903),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.00480985, 0.276669),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_abxpx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b7sn1"]
+_data = {
+"RESET": SubResource("Animation_abxpx"),
+"explosion": SubResource("Animation_21d30")
+}
+
+[node name="explosion_particles" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+process_mode = 3
+emitting = false
+amount = 32
+lifetime = 1.2
+explosiveness = 0.95
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_8rovp")
+draw_pass_1 = SubResource("SphereMesh_gp51h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_vvrej")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MeshInstance3D")
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_b7sn1")
+}

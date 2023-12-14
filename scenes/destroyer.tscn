@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b51736ej14mws"]
+
+[ext_resource type="Script" path="res://scripts/destroyer.gd" id="1_pgbo2"]
+[ext_resource type="ArrayMesh" uid="uid://npdkyq04ukiw" path="res://assets/objects/warship.obj" id="2_rotib"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m82yn"]
+albedo_color = Color(1, 0.454902, 0.435294, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vitbo"]
+
+[node name="Destroyer" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_pgbo2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999999, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 0.999999, 1276.29, -100, 341.805)
+material_override = SubResource("StandardMaterial3D_m82yn")
+mesh = ExtResource("2_rotib")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(200, 0, -1.81899e-12, 0, 200, 0, 1.81899e-12, 0, 200, 2.21964e-05, 1.40524, -253.898)
+shape = SubResource("BoxShape3D_vitbo")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(100, 0, -1.81899e-12, 0, 100, 0, 1.81899e-12, 0, 100, 2.63562, 1.40524, 169.411)
+shape = SubResource("BoxShape3D_vitbo")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(99.9999, 0, -1.81899e-12, 0, 100, 0, 1.81899e-12, 0, 99.9999, 2.63563, 1.40524, 68.4107)
+shape = SubResource("BoxShape3D_vitbo")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(99.9999, 0, -1.81899e-12, 0, 100, 0, 1.81899e-12, 0, 99.9999, 2.63564, 1.40524, -33.5893)
+shape = SubResource("BoxShape3D_vitbo")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(99.9999, 0, -1.81899e-12, 0, 100, 0, 1.81899e-12, 0, 99.9999, 2.63564, 1.40524, -116.589)
+shape = SubResource("BoxShape3D_vitbo")

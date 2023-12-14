@@ -1,0 +1,399 @@
+[gd_scene load_steps=24 format=3 uid="uid://q5xyhllff887"]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_qpct3"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="2_t5p45"]
+[ext_resource type="Script" path="res://scripts/UI.gd" id="3_gbapp"]
+[ext_resource type="Script" path="res://scripts/label_global_coins.gd" id="4_k6cwm"]
+[ext_resource type="Script" path="res://scripts/label_global_wave.gd" id="5_sx5n5"]
+[ext_resource type="Script" path="res://scripts/btn_placefighter.gd" id="6_u1kni"]
+[ext_resource type="Script" path="res://scripts/btn_buybomber.gd" id="7_y3onn"]
+[ext_resource type="Script" path="res://scripts/btn_start_phase.gd" id="8_joi4x"]
+[ext_resource type="Script" path="res://scripts/SelectionBox.gd" id="9_g3lw1"]
+[ext_resource type="PackedScene" uid="uid://cgirjfd0wpway" path="res://scenes/flagship.tscn" id="10_tyjh2"]
+[ext_resource type="PackedScene" uid="uid://b51736ej14mws" path="res://scenes/destroyer.tscn" id="11_yiiuj"]
+[ext_resource type="Script" path="res://scripts/fighter_enemy.gd" id="12_a6eqc"]
+[ext_resource type="ArrayMesh" uid="uid://b3iu34r52uwxa" path="res://assets/objects/fighter.obj" id="13_fs1tm"]
+[ext_resource type="PackedScene" uid="uid://b7v4id4wbrgl2" path="res://scenes/engine_particles.tscn" id="14_okaf5"]
+[ext_resource type="PackedScene" uid="uid://cwuneyqtsbm42" path="res://scenes/stars.tscn" id="15_bc2up"]
+[ext_resource type="PackedScene" uid="uid://fmfboxp577vr" path="res://scenes/asteroid.tscn" id="16_jnrf5"]
+[ext_resource type="PackedScene" uid="uid://d1gxwfh6lm1k0" path="res://scenes/explosion_impact.tscn" id="17_plmi3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_or12n"]
+sky_top_color = Color(0, 0.0470588, 0.0862745, 1)
+sky_horizon_color = Color(0.172549, 0, 0.282353, 1)
+sky_cover_modulate = Color(0.172549, 0, 0.282353, 1)
+ground_bottom_color = Color(0, 0.0470588, 0.0862745, 1)
+ground_horizon_color = Color(0.172549, 0, 0.282353, 1)
+ground_curve = 0.15455
+
+[sub_resource type="Sky" id="Sky_k1uc0"]
+resource_local_to_scene = true
+sky_material = SubResource("ProceduralSkyMaterial_or12n")
+
+[sub_resource type="Environment" id="Environment_2vvej"]
+resource_local_to_scene = true
+background_mode = 2
+background_energy_multiplier = 1.11
+sky = SubResource("Sky_k1uc0")
+ambient_light_color = Color(0.0235294, 0.0862745, 0.172549, 1)
+ambient_light_energy = 2.24
+glow_enabled = true
+glow_hdr_threshold = 0.17
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.0235294, 0.0862745, 0.219608, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_75fmu"]
+albedo_color = Color(1, 0.521569, 0.454902, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hbsxh"]
+size = Vector3(2, 2, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d7vc2"]
+size = Vector3(8, 2, 2)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_qpct3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+process_mode = 3
+transform = Transform3D(0.0851271, -0.797778, 0.596912, -0.0271101, 0.59701, 0.801776, -0.996001, -0.0844352, 0.0291939, 267.437, 265.184, -383.554)
+script = ExtResource("2_t5p45")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+process_mode = 3
+environment = SubResource("Environment_2vvej")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 0.0314108, 0.999507, 0, -0.999507, 0.0314108, -842.596, 671.316, 121.923)
+
+[node name="UI" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1935.0
+offset_bottom = 1283.0
+script = ExtResource("3_gbapp")
+
+[node name="label_phase_title" type="Label" parent="UI"]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 657.0
+offset_top = 32.0
+offset_right = -603.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 72
+text = "Preparation Phase"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="label_global_coins" type="Label" parent="UI"]
+process_mode = 3
+layout_mode = 0
+offset_left = 31.0
+offset_top = 36.0
+offset_right = 205.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 32
+text = "Coins: 1234"
+script = ExtResource("4_k6cwm")
+
+[node name="label_global_wave" type="Label" parent="UI"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -234.0
+offset_top = 33.0
+offset_right = -60.0
+offset_bottom = 81.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Coins: 1234"
+script = ExtResource("5_sx5n5")
+
+[node name="btn_buyfighter" type="Button" parent="UI"]
+process_mode = 2
+layout_mode = 0
+offset_left = 1763.0
+offset_top = 1126.0
+offset_right = 1871.0
+offset_bottom = 1230.0
+text = "Buy
+Fighter
+(50)"
+script = ExtResource("6_u1kni")
+
+[node name="btn_buybomber" type="Button" parent="UI"]
+process_mode = 2
+layout_mode = 0
+offset_left = 1645.0
+offset_top = 1125.0
+offset_right = 1753.0
+offset_bottom = 1229.0
+text = "Buy
+Bomber
+(100)"
+script = ExtResource("7_y3onn")
+
+[node name="btn_start_phase" type="Button" parent="UI"]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 857.0
+offset_top = 184.0
+offset_right = -851.0
+offset_bottom = 263.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Start Wave"
+script = ExtResource("8_joi4x")
+
+[node name="SelectionBox" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_g3lw1")
+
+[node name="World" type="Node3D" parent="."]
+process_mode = 1
+
+[node name="Scene" type="Node3D" parent="World"]
+
+[node name="GridMap" type="GridMap" parent="World/Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.117786, 0, 1.2598)
+cell_size = Vector3(20, 20, 20)
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Player" type="Node3D" parent="World/Scene"]
+
+[node name="Flagship" parent="World/Scene/Player" instance=ExtResource("10_tyjh2")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -18.6175, 174)
+
+[node name="Fighter" type="Node3D" parent="World/Scene/Player"]
+
+[node name="Bomber" type="Node3D" parent="World/Scene/Player"]
+
+[node name="Enemies" type="Node3D" parent="World/Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -725.029)
+
+[node name="Destroyer" parent="World/Scene/Enemies" instance=ExtResource("11_yiiuj")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -73.859, -152.575)
+
+[node name="enemy_fighter2" type="CharacterBody3D" parent="World/Scene/Enemies"]
+transform = Transform3D(-0.02, 0, -3.01992e-09, 0, 0.02, 0, 3.01992e-09, 0, -0.02, 123.981, 0, 0)
+motion_mode = 1
+script = ExtResource("12_a6eqc")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="World/Scene/Enemies/enemy_fighter2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -675.106, -135.771, -409.118)
+material_override = SubResource("StandardMaterial3D_75fmu")
+mesh = ExtResource("13_fs1tm")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter2"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -2.63425e-05, 3.18266, 221.216)
+shape = SubResource("BoxShape3D_hbsxh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter2"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 140.627)
+shape = SubResource("BoxShape3D_d7vc2")
+
+[node name="engine_particles" parent="World/Scene/Enemies/enemy_fighter2" instance=ExtResource("14_okaf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 260)
+
+[node name="enemy_fighter4" type="CharacterBody3D" parent="World/Scene/Enemies"]
+transform = Transform3D(-0.02, 0, -3.01992e-09, 0, 0.02, 0, 3.01992e-09, 0, -0.02, 58.9813, 0, 0)
+motion_mode = 1
+script = ExtResource("12_a6eqc")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="World/Scene/Enemies/enemy_fighter4"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -675.106, -135.771, -409.118)
+material_override = SubResource("StandardMaterial3D_75fmu")
+mesh = ExtResource("13_fs1tm")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter4"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -2.63425e-05, 3.18266, 221.216)
+shape = SubResource("BoxShape3D_hbsxh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter4"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 140.627)
+shape = SubResource("BoxShape3D_d7vc2")
+
+[node name="engine_particles" parent="World/Scene/Enemies/enemy_fighter4" instance=ExtResource("14_okaf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 260)
+
+[node name="enemy_fighter3" type="CharacterBody3D" parent="World/Scene/Enemies"]
+transform = Transform3D(-0.02, 0, -3.01992e-09, 0, 0.02, 0, 3.01992e-09, 0, -0.02, -25.1269, 0, 0)
+motion_mode = 1
+script = ExtResource("12_a6eqc")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="World/Scene/Enemies/enemy_fighter3"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -675.106, -135.771, -409.118)
+material_override = SubResource("StandardMaterial3D_75fmu")
+mesh = ExtResource("13_fs1tm")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter3"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -2.63425e-05, 3.18266, 221.216)
+shape = SubResource("BoxShape3D_hbsxh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter3"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 140.627)
+shape = SubResource("BoxShape3D_d7vc2")
+
+[node name="engine_particles" parent="World/Scene/Enemies/enemy_fighter3" instance=ExtResource("14_okaf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 260)
+
+[node name="enemy_fighter5" type="CharacterBody3D" parent="World/Scene/Enemies"]
+transform = Transform3D(-0.02, 0, -3.01992e-09, 0, 0.02, 0, 3.01992e-09, 0, -0.02, 123.981, 61.5705, 0)
+motion_mode = 1
+script = ExtResource("12_a6eqc")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="World/Scene/Enemies/enemy_fighter5"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -675.106, -135.771, -409.118)
+material_override = SubResource("StandardMaterial3D_75fmu")
+mesh = ExtResource("13_fs1tm")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter5"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -2.63425e-05, 3.18266, 221.216)
+shape = SubResource("BoxShape3D_hbsxh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter5"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 140.627)
+shape = SubResource("BoxShape3D_d7vc2")
+
+[node name="engine_particles" parent="World/Scene/Enemies/enemy_fighter5" instance=ExtResource("14_okaf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 260)
+
+[node name="enemy_fighter6" type="CharacterBody3D" parent="World/Scene/Enemies"]
+transform = Transform3D(-0.02, 0, -3.01992e-09, 0, 0.02, 0, 3.01992e-09, 0, -0.02, 58.9813, 61.5705, 0)
+motion_mode = 1
+script = ExtResource("12_a6eqc")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="World/Scene/Enemies/enemy_fighter6"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -675.106, -135.771, -409.118)
+material_override = SubResource("StandardMaterial3D_75fmu")
+mesh = ExtResource("13_fs1tm")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter6"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -2.63425e-05, 3.18266, 221.216)
+shape = SubResource("BoxShape3D_hbsxh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter6"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 140.627)
+shape = SubResource("BoxShape3D_d7vc2")
+
+[node name="engine_particles" parent="World/Scene/Enemies/enemy_fighter6" instance=ExtResource("14_okaf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 260)
+
+[node name="enemy_fighter7" type="CharacterBody3D" parent="World/Scene/Enemies"]
+transform = Transform3D(-0.02, 0, -3.01992e-09, 0, 0.02, 0, 3.01992e-09, 0, -0.02, -25.1269, 61.5705, 0)
+motion_mode = 1
+script = ExtResource("12_a6eqc")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="World/Scene/Enemies/enemy_fighter7"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -675.106, -135.771, -409.118)
+material_override = SubResource("StandardMaterial3D_75fmu")
+mesh = ExtResource("13_fs1tm")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter7"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -2.63425e-05, 3.18266, 221.216)
+shape = SubResource("BoxShape3D_hbsxh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Scene/Enemies/enemy_fighter7"]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 140.627)
+shape = SubResource("BoxShape3D_d7vc2")
+
+[node name="engine_particles" parent="World/Scene/Enemies/enemy_fighter7" instance=ExtResource("14_okaf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 260)
+
+[node name="Bullets" type="Node3D" parent="World/Scene"]
+
+[node name="BulletArea" type="Node3D" parent="World/Scene/Bullets"]
+
+[node name="BulletArea2" type="Node3D" parent="World/Scene/Bullets"]
+
+[node name="BulletArea3" type="Node3D" parent="World/Scene/Bullets"]
+
+[node name="stars" parent="World/Scene" instance=ExtResource("15_bc2up")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -46.6477, -49.8019, -514.04)
+visible = false
+
+[node name="asteroids_field" type="Node3D" parent="World/Scene"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 220.352, -137.802, -414.04)
+
+[node name="asteroid" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.31613, 0.137414, 2.00223, 1.23538, 1.83152, -0.937754, -1.58166, 1.54488, 0.933652, 0, 0, -304.828)
+
+[node name="asteroid2" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(0.922434, -0.915763, 0.0221919, 0.899151, 0.899151, -0.270285, 0.175049, 0.207134, 1.2714, 19.0194, -2.90312, -218.107)
+
+[node name="asteroid3" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.31645, 0.207855, 1.19343, 0.0610709, 1.74884, -0.371954, -1.20986, 0.314445, 1.2798, -18.606, -15.6893, -176.938)
+
+[node name="asteroid4" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(0.83393, 0.334193, 0.363094, 0.0239127, 0.684769, -0.685186, -0.4929, 0.598638, 0.581071, 2.7532, -3.28747, -125.145)
+
+[node name="asteroid5" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.85213, -0.107486, 0.0805724, 0.134178, 1.53366, -1.03842, -0.00643774, 1.04152, 1.53741, 0, 0, -203.901)
+
+[node name="asteroid6" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.06022, 0.0021967, 0.44802, 0.0400165, 1.14592, -0.100316, -0.446234, 0.107981, 1.05547, 19.0194, -2.90312, -117.18)
+
+[node name="asteroid7" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.55439, 0.485392, 1.39617, 0.137733, 1.96967, -0.838118, -1.47171, 0.696998, 1.39617, -18.606, -15.6893, -76.0106)
+
+[node name="asteroid8" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.61894, -0.510938, 2.32026, 1.12061, 2.64, -0.200551, -2.09496, 1.01732, 1.68577, 2.7532, -3.28747, -227.651)
+
+[node name="asteroid9" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(3.58313, -2.31155, 0.205663, 2.19742, 3.25782, -1.66803, 0.746247, 1.5059, 3.92425, 20.7374, 21.6944, -248.151)
+
+[node name="asteroid10" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(3.19964, -0.0922529, 2.15717, 0.201894, 3.85236, -0.134712, -2.14968, 0.224495, 3.19814, 39.7568, 18.7913, -161.43)
+
+[node name="asteroid13" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(2.12591, -1.72276, 0.160214, 1.06474, 1.10257, -2.27239, 1.36379, 1.82469, 1.52435, -48.1985, -23.0642, -246.814)
+
+[node name="asteroid14" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.3409, -1.33113, 0.0987784, 1.33459, 1.33459, -0.131979, 0.0231782, 0.163213, 1.8848, -50.9517, -19.7767, -325.569)
+
+[node name="asteroid15" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(2.61691, -0.691028, 0.0462113, 0.685312, 2.55762, -0.562818, 0.100012, 0.555785, 2.64744, -31.9323, -22.6798, -238.848)
+
+[node name="asteroid16" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(0.199456, -2.9209, -0.336661, -0.774418, -0.377708, 2.81823, -2.83642, -0.102273, -0.793124, -69.5577, -35.466, -197.679)
+
+[node name="asteroid17" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(-1.76276, 3.16906, 2.25636, -0.0876126, -2.5089, 3.45531, 3.88927, 1.37981, 1.1005, -48.1985, -23.0642, -145.886)
+
+[node name="asteroid18" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.20232, -1.42552, 0.556094, 1.30017, 0.578873, -1.32717, 0.80678, 1.19152, 1.31008, -30.2143, 1.91774, -369.819)
+
+[node name="asteroid19" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(0.718702, -0.521787, 0.7163, 0.870735, 0.587318, -0.445824, -0.16483, 0.827452, 0.768138, -11.1949, -0.985384, -283.098)
+
+[node name="asteroid11" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(-0.949214, 0.949776, 0.877345, -1.25302, -0.944218, -0.33349, 0.318992, -0.88272, 1.30072, 2.13144, 6.00513, -120.261)
+
+[node name="asteroid12" parent="World/Scene/asteroids_field" instance=ExtResource("16_jnrf5")]
+transform = Transform3D(1.87136, -1.88909, 0.977371, 1.39876, 2.07375, 1.33001, -1.60231, -0.395982, 2.30254, 23.4906, 18.407, -68.4678)
+
+[node name="VFX" type="Node3D" parent="World/Scene"]
+
+[node name="Node3D" parent="World/Scene/VFX" instance=ExtResource("17_plmi3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 0)

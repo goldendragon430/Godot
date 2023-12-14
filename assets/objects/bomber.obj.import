@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d2o4n1cjo2jq5"
+path="res://.godot/imported/bomber.obj-200c2e265b825359f7b91c21aca2aafa.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bomber.obj-200c2e265b825359f7b91c21aca2aafa.mesh"]
+
+source_file="res://assets/objects/bomber.obj"
+dest_files=["res://.godot/imported/bomber.obj-200c2e265b825359f7b91c21aca2aafa.mesh", "res://.godot/imported/bomber.obj-200c2e265b825359f7b91c21aca2aafa.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

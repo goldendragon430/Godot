@@ -1,0 +1,69 @@
+[gd_scene load_steps=15 format=3 uid="uid://b7v4id4wbrgl2"]
+
+[ext_resource type="Shader" uid="uid://c5hm7twvkjm17" path="res://assets/materials/engine_particles.tres" id="1_8jeci"]
+
+[sub_resource type="Gradient" id="Gradient_nwrjg"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_akne8"]
+gradient = SubResource("Gradient_nwrjg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d4bpl"]
+emission_shape = 1
+emission_sphere_radius = 0.3
+gravity = Vector3(0, 0, 2)
+color_ramp = SubResource("GradientTexture1D_akne8")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qinn5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4oclj"]
+noise = SubResource("FastNoiseLite_qinn5")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_42qo3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cwfs7"]
+noise = SubResource("FastNoiseLite_42qo3")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ral0l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dg0sx"]
+noise = SubResource("FastNoiseLite_ral0l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4dssc"]
+render_priority = 0
+shader = ExtResource("1_8jeci")
+shader_parameter/displace = 0.06
+shader_parameter/base_color = Color(0, 0.113725, 0.180392, 1)
+shader_parameter/emission_color = Color(0, 1, 1, 1)
+shader_parameter/emission_strength = 20.0
+shader_parameter/tex_vtx_2 = SubResource("NoiseTexture2D_dg0sx")
+shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_cwfs7")
+shader_parameter/tex_frg_13 = SubResource("NoiseTexture2D_4oclj")
+
+[sub_resource type="SphereMesh" id="SphereMesh_aadc4"]
+material = SubResource("ShaderMaterial_4dssc")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go825"]
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_wmodb"]
+material = SubResource("StandardMaterial3D_go825")
+
+[node name="engine_particles" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.200166)
+amount = 40
+lifetime = 0.05
+trail_lifetime = 0.95
+process_material = SubResource("ParticleProcessMaterial_d4bpl")
+draw_pass_1 = SubResource("SphereMesh_aadc4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_wmodb")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://c467lp460avh5"]
+
+[ext_resource type="Script" path="res://scripts/fighter_enemy.gd" id="1_osmdq"]
+[ext_resource type="ArrayMesh" uid="uid://b3iu34r52uwxa" path="res://assets/objects/fighter.obj" id="2_shliu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_75fmu"]
+albedo_color = Color(1, 0.521569, 0.454902, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hbsxh"]
+size = Vector3(2, 2, 5)
+
+[node name="enemy_fighter" type="CharacterBody3D"]
+transform = Transform3D(-2, 0, -3.01992e-07, 0, 2, 0, 3.01992e-07, 0, -2, 0, 0, 0)
+script = ExtResource("1_osmdq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -675.106, -135.771, -409.118)
+material_override = SubResource("StandardMaterial3D_75fmu")
+mesh = ExtResource("2_shliu")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 2.25448, 3.18266, 173.968)
+shape = SubResource("BoxShape3D_hbsxh")

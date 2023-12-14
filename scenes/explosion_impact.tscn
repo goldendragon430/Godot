@@ -1,0 +1,43 @@
+[gd_scene load_steps=12 format=3 uid="uid://d1gxwfh6lm1k0"]
+
+[ext_resource type="Shader" path="res://assets/shaders/particle_mat.gdshader" id="1_gw2dq"]
+[ext_resource type="Shader" uid="uid://dxmslvotmn2x0" path="res://assets/materials/explosion_impact.tres" id="2_iw872"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a5o0q"]
+shader = ExtResource("1_gw2dq")
+
+[sub_resource type="SphereMesh" id="SphereMesh_vp2cq"]
+material = SubResource("ShaderMaterial_a5o0q")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l4732"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x41qq"]
+noise = SubResource("FastNoiseLite_l4732")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mpv6r"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uumkm"]
+seamless = true
+noise = SubResource("FastNoiseLite_mpv6r")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dhfiu"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_elj4h"]
+noise = SubResource("FastNoiseLite_dhfiu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ggcqk"]
+render_priority = 0
+shader = ExtResource("2_iw872")
+shader_parameter/displace = 0.1
+shader_parameter/base_color = Color(0.254902, 0.231373, 0.203922, 1)
+shader_parameter/emission_color = Color(0.658824, 0.290196, 0.0941176, 1)
+shader_parameter/emission_strength = 0.0
+shader_parameter/tex_vtx_2 = SubResource("NoiseTexture2D_elj4h")
+shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_uumkm")
+shader_parameter/tex_frg_17 = SubResource("NoiseTexture2D_x41qq")
+
+[node name="explosion" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_vp2cq")
+surface_material_override/0 = SubResource("ShaderMaterial_ggcqk")

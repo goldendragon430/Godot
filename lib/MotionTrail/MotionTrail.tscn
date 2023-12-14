@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxpjcntc2hgcm"]
+
+[ext_resource type="Script" path="res://MotionTrail/MotionTrail.gd" id="2"]
+
+[node name="MotionTrail" type="ImmediateGeometry"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+editor_description = ""
+material_override = null
+script = ExtResource("2")

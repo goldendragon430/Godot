@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7stcep8g7dh0"]
+
+[ext_resource type="Script" path="res://scripts/bomber.gd" id="1_vl1s1"]
+[ext_resource type="ArrayMesh" uid="uid://b64g1xq5np3y2" path="res://assets/objects/bomber2.obj" id="2_kjfkt"]
+[ext_resource type="Script" path="res://lib/MotionTrail/MotionTrail.gd" id="3_xhq6k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d33ym"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvt6n"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_uipmu"]
+material = SubResource("StandardMaterial3D_pvt6n")
+radius = 0.35
+height = 0.7
+
+[node name="bomber" type="CharacterBody3D"]
+script = ExtResource("1_vl1s1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11.5716, 48.825, 154.115)
+mesh = ExtResource("2_kjfkt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 65.2746)
+shape = SubResource("BoxShape3D_d33ym")
+
+[node name="Engine" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00463, 50, 281.341)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Engine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.242598, 4.75065, 0)
+script = ExtResource("3_xhq6k")
+fromWidth = 7.0
+lifespan = 2.0
+startColor = Color(0, 1, 1, 0.843137)
+endColor = Color(0, 1, 1, 0)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Engine"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0.159182, 4.58973, -8.44092)
+mesh = SubResource("SphereMesh_uipmu")
+skeleton = NodePath("../../Engine")
+
+[node name="Engine2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.2055, 50, 281.341)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Engine2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.242598, 4.75065, 0)
+script = ExtResource("3_xhq6k")
+fromWidth = 7.0
+lifespan = 2.0
+startColor = Color(0, 1, 1, 0.843137)
+endColor = Color(0, 1, 1, 0)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Engine2"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0.159182, 4.58973, -8.44092)
+mesh = SubResource("SphereMesh_uipmu")
+skeleton = NodePath("../../Engine")
+
+[node name="gunpoints" type="Node3D" parent="."]
+
+[node name="gunpoint" type="Node3D" parent="gunpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107, -15, -61)
+
+[node name="gunpoint2" type="Node3D" parent="gunpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.584, -15, -61)
+
+[node name="gunpoint3" type="Node3D" parent="gunpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -165.898, -15, -86.6732)
+
+[node name="gunpoint4" type="Node3D" parent="gunpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147.314, -15, -86.6732)
+
+[node name="gunpoint5" type="Node3D" parent="gunpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 138.033, -15, -110.763)
+
+[node name="gunpoint6" type="Node3D" parent="gunpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -157.472, -15, -110.763)

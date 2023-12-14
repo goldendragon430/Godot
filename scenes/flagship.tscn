@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgirjfd0wpway"]
+
+[ext_resource type="Script" path="res://scripts/Flagship.gd" id="1_uugug"]
+[ext_resource type="ArrayMesh" uid="uid://cli7xtr0vhwu" path="res://assets/objects/station.obj" id="2_drri1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qrl5h"]
+albedo_color = Color(0.52549, 0.52549, 0.52549, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x5gum"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_csso6"]
+
+[node name="Flagship" type="CharacterBody3D"]
+script = ExtResource("1_uugug")
+
+[node name="Station" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1129.19, -322, 416.234)
+material_override = SubResource("StandardMaterial3D_qrl5h")
+mesh = ExtResource("2_drri1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(330, 0, 0, 0, 20, 0, 0, 0, 330, 0, 0, 0)
+shape = SubResource("CylinderShape3D_x5gum")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(50, 0, 0, 0, 200, 0, 0, 0, 50, 0, 0, 0)
+shape = SubResource("CylinderShape3D_csso6")

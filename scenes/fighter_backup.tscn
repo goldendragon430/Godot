@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://ugfp5n1ywwnn"]
+
+[ext_resource type="Script" path="res://scripts/fighter.gd" id="1_ag1om"]
+[ext_resource type="ArrayMesh" uid="uid://54bqavmmsyf8" path="res://assets/objects/fighter2.obj" id="2_4ji0h"]
+[ext_resource type="Script" path="res://lib/MotionTrail/MotionTrail.gd" id="4_vuc6r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yw3aq"]
+size = Vector3(8, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvfhk"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tyxqh"]
+material = SubResource("StandardMaterial3D_tvfhk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66x4u"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 20.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jo3yf"]
+material = SubResource("StandardMaterial3D_66x4u")
+height = 2.8
+
+[node name="fighter" type="CharacterBody3D"]
+script = ExtResource("1_ag1om")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 25.557, 0, 0)
+mesh = ExtResource("2_4ji0h")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, 0, 0, 126.83)
+shape = SubResource("BoxShape3D_yw3aq")
+
+[node name="selected" type="MeshInstance3D" parent="."]
+transform = Transform3D(60, 0, 0, 0, 60, 0, 0, 0, 60, 0, 255.453, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_tyxqh")
+
+[node name="Engine" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 356, 50, 150)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Engine"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("4_vuc6r")
+fromWidth = 20.0
+endColor = Color(0, 1, 1, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Engine"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 4.72171, -4.07053, -12.171)
+mesh = SubResource("CapsuleMesh_jo3yf")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Engine"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, -3.18204, -4.07053, -12.171)
+mesh = SubResource("CapsuleMesh_jo3yf")
+
+[node name="Engine2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -246.416, 50, 150)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Engine2"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("4_vuc6r")
+fromWidth = 20.0
+endColor = Color(0, 1, 1, 0)
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Engine2"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 3.28372, -4.07053, -12.171)
+mesh = SubResource("CapsuleMesh_jo3yf")
+skeleton = NodePath("../../Engine")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Engine2"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, -4.61996, -4.07053, -12.171)
+mesh = SubResource("CapsuleMesh_jo3yf")
+skeleton = NodePath("../../Engine")
+
+[node name="gunpoints" type="Node3D" parent="."]
+
+[node name="gunpoint" type="Node3D" parent="gunpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 202.86, 46.0599, 31.0137)
+
+[node name="gunpoint2" type="Node3D" parent="gunpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.9168, 46.0599, 31.0137)
